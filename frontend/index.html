@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Gestion de Parc Informatique</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9edf2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* En-tête */
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Container principal */
+        .container {
+            flex: 1;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        /* Cartes */
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+            max-width: 500px;
+            flex: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 2rem;
+            background: #f8f9fc;
+            border-bottom: 1px solid #eef2f7;
+        }
+
+        .card-header.visitor {
+            background-color: #d87034;
+            color: white;
+        }
+
+        .card-header.admin {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-body p {
+            color: #4a5568;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #c97d26;
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: background 0.2s, transform 0.1s;
+            text-align: center;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-admin {
+            background-color: #2c3e50;
+        }
+
+        .btn-admin:hover {
+            background-color: #1e2b38;
+        }
+
+        .btn-visitor:hover {
+            background-color: #2980b9;
+        }
+
+        .features {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .features li {
+            padding: 0.3rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .features li::before {
+            content: "✓";
+            color: #19a152;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            margin-top: 2rem;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.5rem; }
+            .card-header { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1> Gestion de Parc Informatique</h1>
+        <p>Application centralisée pour le suivi des équipements, des incidents et des interventions</p>
+    </div>
+
+    <div class="container">
+        <!-- Carte Visiteur (accès public) -->
+        <div class="card">
+            <div class="card-header visitor">
+                 Espace Visiteur
+            </div>
+            <div class="card-body">
+                <p>Accédez à l'inventaire public des équipements et signalez un problème sans authentification.</p>
+                <ul class="features">
+                    <li>Consulter la liste du matériel disponible</li>
+                    <li>Voir les images et caractéristiques de base</li>
+                    <li>Ouvrir un ticket d’incident rapidement</li>
+                </ul>
+                <a href="visitor.html" class="btn btn-visitor">🔍 Accéder à l'espace public</a>
+            </div>
+        </div>
+
+        <!-- Carte Administrateur / Personnel -->
+        <div class="card">
+            <div class="card-header admin">
+                🔐 Espace Administration & Technique
+            </div>
+            <div class="card-body">
+                <p>Authentification requise pour gérer l’ensemble du parc, les utilisateurs, les tickets et générer des rapports.</p>
+                <ul class="features">
+                    <li>Gestion complète des équipements (CRUD + images)</li>
+                    <li>Suivi des tickets et affectation aux techniciens</li>
+                    <li>Tableau de bord avec statistiques</li>
+                    <li>Gestion des utilisateurs et rôles (admin, technicien, user)</li>
+                </ul>
+                <a href="login.html" class="btn btn-admin">🔑 Se connecter</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Projet de fin de cycle – Gestion de parc informatique | Interface publique et professionnelle</p>
+        <p style="margin-top: 0.5rem; font-size:0.75rem;">Démonstration technique – tous droits réservés</p>
+    </footer>
+</body>
+</html>

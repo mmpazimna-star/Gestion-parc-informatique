@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Tableau de bord</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <span>Parc Informatique</span>
+        <div>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="equipments.html">Équipements</a>
+            <a href="tickets.html">Tickets</a>
+            <button id="logoutBtn">Déconnexion</button>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Tableau de bord</h1>
+        <div class="stats-cards">
+            <div class="card"><h3>Équipements</h3><p id="totalEquipments">-</p></div>
+            <div class="card"><h3>Tickets actifs</h3><p id="activeTickets">-</p></div>
+            <div class="card"><h3>Hors garantie</h3><p id="outOfWarranty">-</p></div>
+        </div>
+        <h2>Répartition par type</h2>
+        <canvas id="typeChart" width="400" height="200"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

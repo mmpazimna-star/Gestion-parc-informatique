@@ -1,0 +1,58 @@
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des équipements</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <span>Parc Informatique</span>
+        <div>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="equipments.html">Équipements</a>
+            <a href="tickets.html">Tickets</a>
+            <button id="logoutBtn">Déconnexion</button>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Équipements</h1>
+        <button id="addEquipmentBtn" class="btn-primary">+ Ajouter un équipement</button>
+        <table id="equipmentsTable">
+            <thead>
+                <tr><th>Code</th><th>Type</th><th>Marque</th><th>Modèle</th><th>Statut</th><th>Affecté à</th><th>Actions</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <!-- Modal ajout/modification -->
+    <div id="equipmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Ajouter un équipement</h2>
+            <form id="equipmentForm">
+                <input type="hidden" id="equipId">
+                <input type="text" id="code" placeholder="Code unique" required>
+                <input type="text" id="type" placeholder="Type (PC, Imprimante, etc.)" required>
+                <input type="text" id="brand" placeholder="Marque">
+                <input type="text" id="model" placeholder="Modèle">
+                <input type="text" id="serialNumber" placeholder="Numéro de série">
+                <select id="status">
+                    <option value="active">Actif</option>
+                    <option value="maintenance">En maintenance</option>
+                    <option value="retired">Réformé</option>
+                </select>
+                <input type="date" id="purchaseDate" placeholder="Date d'achat">
+                <input type="date" id="warrantyEnd" placeholder="Fin garantie">
+                <input type="text" id="location" placeholder="Localisation">
+                <select id="assignedTo"></select>
+                <button type="submit">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+    <script src="js/api.js"></script>
+    <script src="js/equipments.js"></script>
+</body>
+</html>

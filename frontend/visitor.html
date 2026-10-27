@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parc informatique - Accès public</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .visitor-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .equipment-card { border: 1px solid #ddd; border-radius: 8px; margin: 10px; padding: 10px; display: inline-block; width: 200px; text-align: center; }
+        .equipment-card img { max-width: 100%; height: auto; max-height: 120px; }
+        .ticket-form { background: #f9f9f9; padding: 20px; margin-top: 30px; border-radius: 8px; }
+        input, textarea, select { width: 100%; padding: 8px; margin: 8px 0; }
+        button { background: #3498db; color: white; border: none; padding: 10px; cursor: pointer; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { margin-right: 15px; }
+    </style>
+</head>
+<body>
+    <div class="visitor-container">
+        <div class="nav-links">
+            <a href="visitor.html">Accueil public</a>
+            <a href="login.html">Espace personnel</a>
+        </div>
+        <h1>Matériel informatique disponible</h1>
+        <div id="equipmentsList"></div>
+
+        <div class="ticket-form">
+            <h2>Signaler un problème</h2>
+            <form id="publicTicketForm">
+                <input type="text" id="name" placeholder="Votre nom" required>
+                <input type="email" id="email" placeholder="Votre email" required>
+                <select id="equipmentId">
+                    <option value="">Sélectionnez un équipement (optionnel)</option>
+                </select>
+                <input type="text" id="title" placeholder="Titre du problème" required>
+                <textarea id="description" placeholder="Description détaillée" rows="4" required></textarea>
+                <button type="submit">Envoyer le signalement</button>
+                <div id="ticketMessage"></div>
+            </form>
+        </div>
+    </div>
+    <script>
+        const API_BASE = 'http://localhost:5000/api';
+
+        async function loadPublicEquipments() {
+            const res = await fetch(`${API_BASE}/public/equipments`);
+            const data = await res.json();
+            const container = document.getElementById('equipmentsList');
+            container.innerHTML = '';
+            data.forEach(eq => {
+                const card = document.createElement('div');
+                card.className = 'equipment-card';
+                card.innerHTML = `
+                    <img src="${eq.image_url || 'https://via.placeholder.com/100?text=No+image'}" alt="${eq.code}">
+                    <h3>${eq.code}</h3>
+                    <p>${eq.type} - ${eq.brand || ''} ${eq.model || ''}</p>
+                    <p>Statut: ${eq.status}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        async function loadEquipmentSelect() {
+            const res = await fetch(`${API_BASE}/public/equipments`);
+            const data = await res.json();
+            const select = document.getElementById('equipmentId');
+            data.forEach(eq => {
+                const option = document.createElement('option');
+                option.value = eq.id;
+                option.textContent = `${eq.code} (${eq.type})`;
+                select.appendChild(option);
+            });
+        }
+
+        document.getElementById('publicTicketForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const equipmentId = document.getElementById('equipmentId').value;
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+
+            const res = await fetch(`${API_BASE}/public/tickets`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, equipmentId, title, description })
+            });
+            const result = await res.json();
+            const msgDiv = document.getElementById('ticketMessage');
+            if (res.ok) {
+                msgDiv.style.color = 'green';
+                msgDiv.innerText = result.message;
+                document.getElementById('publicTicketForm').reset();
+            } else {
+                msgDiv.style.color = 'red';
+                msgDiv.innerText = result.error || 'Erreur lors de l’envoi';
+            }
+        });
+
+        loadPublicEquipments();
+        loadEquipmentSelect();
+    </script>
+</body>
+</html>

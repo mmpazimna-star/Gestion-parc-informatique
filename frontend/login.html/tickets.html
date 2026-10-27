@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des tickets</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <span>Parc Informatique</span>
+        <div>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="equipments.html">Équipements</a>
+            <a href="tickets.html">Tickets</a>
+            <button id="logoutBtn">Déconnexion</button>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Tickets d'incident</h1>
+        <button id="newTicketBtn" class="btn-primary">+ Ouvrir un ticket</button>
+        <table id="ticketsTable">
+            <thead><tr><th>Titre</th><th>Statut</th><th>Priorité</th><th>Équipement</th><th>Créé par</th><th>Actions</th></tr></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <!-- Modal nouveau ticket -->
+    <div id="ticketModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Nouveau ticket</h2>
+            <form id="ticketForm">
+                <input type="text" id="title" placeholder="Titre" required>
+                <textarea id="description" placeholder="Description"></textarea>
+                <select id="priority"><option value="low">Basse</option><option value="medium">Moyenne</option><option value="high">Haute</option></select>
+                <select id="equipmentId"><option value="">Aucun</option></select>
+                <button type="submit">Créer</button>
+            </form>
+        </div>
+    </div>
+    <script src="js/api.js"></script>
+    <script src="js/tickets.js"></script>
+</body>
+</html>
